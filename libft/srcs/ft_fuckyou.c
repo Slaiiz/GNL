@@ -12,5 +12,5 @@
 
 void	ft_fuckyou(void)
 {
-  return ;
+	return ;
 }

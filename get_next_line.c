@@ -30,7 +30,7 @@ static int	load_next_chunk(t_buffer *buff)
 		free(data);
 	}
 	if ((size = read(buff->fd, new + buff->size, BUFF_SIZE)) == (size_t)-1)
-		return (size);
+		return (-1);
 	buff->size += size;
 	return (size);
 }
@@ -123,7 +123,7 @@ int			get_next_line(const int fd, char **line)
 	*line = NULL;
 	if (!get_buffer(fd, &root, &buff))
 		return (-1);
-	while ((error = retrieve_line(buff, line, 0)) == 0)
+	while (!(error = retrieve_line(buff, line, 0)))
 		if ((error = load_next_chunk(buff)) < 1)
 			break ;
 	if (error == 0)
