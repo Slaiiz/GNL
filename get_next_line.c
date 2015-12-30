@@ -29,9 +29,8 @@ static int	load_next_chunk(t_buffer *buff)
 			new[size] = data[size];
 		free(data);
 	}
-	if ((size = read(buff->fd, new + buff->size, BUFF_SIZE)) == (size_t)-1)
-		return (-1);
-	buff->size += size;
+	if ((size = read(buff->fd, new + buff->size, BUFF_SIZE)) != (size_t)-1)
+		buff->size += size;
 	return (size);
 }
 
