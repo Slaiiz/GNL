@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/20 13:11:03 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/24 10:59:58 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/11/24 10:01:45 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/11/25 16:10:58 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE	32
-
-typedef struct			s_buffer
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int					fd;
-	size_t				size;
-	char				*data;
-	struct s_buffer		*next;
-}						t_buffer;
-
-int						get_next_line(const int fd, char **line);
-
-#endif
+	while (n--)
+		if (*(unsigned char*)s++ == (unsigned char)c)
+			return (void*)(s - 1);
+	return (void*)0;
+}

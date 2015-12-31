@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/20 13:11:03 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/24 10:59:58 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/11/24 20:01:37 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/11/26 18:57:59 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE	32
-
-typedef struct			s_buffer
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int					fd;
-	size_t				size;
-	char				*data;
-	struct s_buffer		*next;
-}						t_buffer;
+	unsigned int	size;
+	void			*buf;
+	void			*tmp;
 
-int						get_next_line(const int fd, char **line);
-
-#endif
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	if ((buf = malloc(size)) == NULL)
+		return (NULL);
+	tmp = buf;
+	while (size-- && *s1 != '\0')
+		*((char*)buf++) = *s1++;
+	while (size--)
+		*((char*)buf++) = *s2++;
+	*(char*)buf = '\0';
+	return ((char*)tmp);
+}

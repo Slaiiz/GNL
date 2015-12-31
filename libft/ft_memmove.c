@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fuckyou.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/27 13:44:39 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/27 13:49:23 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/11/24 10:02:33 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/11/25 16:33:24 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_fuckyou(void)
+#include "libft.h"
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	return ;
+	int		direction;
+	void	*tmp;
+
+	tmp = dst;
+	if (dst > src)
+	{
+		direction = -1;
+		dst += len - 1;
+		src += len - 1;
+	}
+	else
+		direction = 1;
+	while (len--)
+	{
+		*((unsigned char*)dst) = *((unsigned char*)src);
+		dst += direction;
+		src += direction;
+	}
+	return (tmp);
 }

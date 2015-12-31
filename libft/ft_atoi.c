@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/20 13:11:03 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/24 10:59:58 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/12/03 15:49:26 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/12/03 16:08:30 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE	32
-
-typedef struct			s_buffer
+int	ft_atoi(const char *str)
 {
-	int					fd;
-	size_t				size;
-	char				*data;
-	struct s_buffer		*next;
-}						t_buffer;
+	int		number;
+	char	sign;
 
-int						get_next_line(const int fd, char **line);
-
-#endif
+	while (ft_isblank(*str))
+		str++;
+	if (*str == '+')
+	{
+		sign = +1;
+		str++;
+	}
+	else if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	else
+		sign = +1;
+	number = 0;
+	while (ft_isdigit(*str))
+		number = number * 10 + *str++ - '0';
+	return (number * sign);
+}

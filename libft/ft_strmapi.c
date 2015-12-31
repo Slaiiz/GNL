@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/20 13:11:03 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/24 10:59:58 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/11/24 18:52:53 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/12/03 13:50:13 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE	32
-
-typedef struct			s_buffer
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int					fd;
-	size_t				size;
-	char				*data;
-	struct s_buffer		*next;
-}						t_buffer;
+	const char	*tmp;
+	void		*buf;
 
-int						get_next_line(const int fd, char **line);
-
-#endif
+	if ((buf = malloc(ft_strlen(s) + 1)) == NULL)
+		return (NULL);
+	tmp = buf;
+	while (*s != '\0')
+	{
+		*((char*)buf) = f((unsigned int)((void*)buf - (void*)tmp), *s++);
+		buf++;
+	}
+	return ((char*)tmp);
+}

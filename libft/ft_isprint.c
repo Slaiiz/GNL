@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/20 13:11:03 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/24 10:59:58 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/11/24 16:10:30 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/11/25 18:50:25 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE	32
-
-typedef struct			s_buffer
+int	ft_isprint(int c)
 {
-	int					fd;
-	size_t				size;
-	char				*data;
-	struct s_buffer		*next;
-}						t_buffer;
+	int	valid[4];
 
-int						get_next_line(const int fd, char **line);
-
-#endif
+	valid[0] = 0x00000000;
+	valid[1] = 0xFFFFFFFF;
+	valid[2] = 0xFFFFFFFF;
+	valid[3] = 0x7FFFFFFF;
+	if (c > 127)
+		return (0);
+	else
+		return (valid[c >> 5] >> (c & 31) & 1);
+}

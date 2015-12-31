@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vchesnea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/20 13:11:03 by vchesnea          #+#    #+#             */
-/*   Updated: 2015/12/24 10:59:58 by vchesnea         ###   ########.fr       */
+/*   Created: 2015/12/03 14:48:30 by vchesnea          #+#    #+#             */
+/*   Updated: 2015/12/03 16:17:25 by vchesnea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE	32
-
-typedef struct			s_buffer
+char	*ft_strstr(char const *s1, char const *s2)
 {
-	int					fd;
-	size_t				size;
-	char				*data;
-	struct s_buffer		*next;
-}						t_buffer;
+	const char	*pos;
+	const char	*bak;
+	char		c;
 
-int						get_next_line(const int fd, char **line);
-
-#endif
+	bak = s2;
+	pos = s1;
+	if (*s2 == '\0')
+		return ((char*)s1);
+	while ((c = *s1++) != '\0')
+	{
+		if (c == *s2)
+		{
+			if (s2++ == bak)
+				pos = s1 - 1;
+			if (*s2 == '\0')
+				return ((char*)pos);
+		}
+		else
+		{
+			s1 = pos + 1;
+			s2 = bak;
+			pos = s1;
+		}
+	}
+	return (NULL);
+}
