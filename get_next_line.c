@@ -85,24 +85,24 @@ static int	retrieve_line(t_buffer *buff, char **out, size_t size)
 	return (trim_buffer(buff, trim));
 }
 
-static int	get_buffer(const int fd, t_buffer *root, t_buffer **out)
+static int	get_buffer(const int fd, t_buffer *entry, t_buffer **out)
 {
 	t_buffer	*new;
 
-	while (root->next != NULL)
+	while (entry->next != NULL)
 	{
-		if (root->fd == fd)
+		if (entry->fd == fd && entry->data != NULL)
 			break ;
-		root = root->next;
+		entry = entry->next;
 	}
-	new = root;
-	if (root->fd != fd)
+	new = entry;
+	if (entry->fd != fd)
 	{
-		if (root->fd != 0)
+		if (entry->fd != 0 || entry->data != NULL)
 		{
 			if ((new = malloc(sizeof(t_buffer))) == NULL)
 				return (0);
-			root->next = new;
+			entry->next = new;
 			new->next = NULL;
 			new->data = NULL;
 			new->size = 0;
@@ -117,11 +117,11 @@ int			get_next_line(const int fd, char **line)
 {
 	int				error;
 	t_buffer		*buff;
-	static t_buffer	root;
+	static t_buffer	entry;
 
-	*line = NULL;
-	if (!get_buffer(fd, &root, &buff))
+	if (fd < 0 || line == NULL || !get_buffer(fd, &entry, &buff))
 		return (-1);
+	*line = NULL;
 	while (!(error = retrieve_line(buff, line, 0)))
 		if ((error = load_next_chunk(buff)) < 1)
 			break ;
